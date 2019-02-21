@@ -5,17 +5,27 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language'=>'ru_RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'x1yZxAsFadyGbXn40PU40s_DK8U9tPXQ',
         ],
+        //'activity'=>[
+        //    'class'=>\app\components\ActivityComponent::class,
+        //    'activity_class'=>'\app\models\Activity'
+        //],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
