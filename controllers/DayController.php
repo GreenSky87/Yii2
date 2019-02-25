@@ -1,20 +1,18 @@
 <?php
-
 namespace app\controllers;
+
 use app\base\BaseController;
-use app\controllers\actions\DayAddAction;
-use app\controllers\actions\DayViewAction;
+use app\controllers\actions\DayCreateAction;
+use app\models\Day;
+use yii\web\Controller;
+
+
 class DayController extends BaseController
-{
-    public function actions()
-    {
-        return [
-            'add' => [
-                'class' => DayAddAction::class
-            ],
-            'view' => [
-                'class' => DayViewAction::class
-            ]
+{ 
+   
+    public function actions(){
+        return[
+            'create'=>['class'=>DayCreateAction::class, 'myName'=>'Dmitriy']
         ];
     }
 }

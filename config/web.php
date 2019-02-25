@@ -22,18 +22,10 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'x1yZxAsFadyGbXn40PU40s_DK8U9tPXQ',
         ],
-        'activity' => [
-            'class' => \app\components\ActivityComponent::class,
-            'activity_class' => '\app\models\Activity'
-            ],
-        'day' => [
-            'class' => \app\components\DayComponent::class,
-            'day_class' => '\app\models\Day'
-        ],
-        'calendar' => [
-            'class' => \app\components\CalendarComponent::class,
-            'calendar_class' => '\app\models\Calendar'
-        ],
+        //'activity'=>[
+        //    'class'=>\app\components\ActivityComponent::class,
+        //    'activity_class'=>'\app\models\Activity'
+        //],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
