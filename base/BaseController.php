@@ -9,12 +9,13 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
-class BaseController extends Controller
+class BaseController extends \yii\web\Controller
 {
-        //Yii::$app->getSession()->setFlash('userPage', '127.0.0.1' . $_SERVER['REQUEST_URI']);
+        
     public function afterAction($action, $result)
     {
-        \Yii::$app->session->setFlash('userPage',\Yii::$app->request->url);
+        $session= \Yii::$app->session;
+        $session->setFlash('lastPage',\Yii::$app->request->absoluteUrl);
         return parent::afterAction($action, $result);
     }
 }
