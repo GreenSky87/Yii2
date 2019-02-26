@@ -1,9 +1,9 @@
 <?php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=kozlov',
+    'dsn' => 'mysql:host=localhost;dbname=greensky',
     'username' => 'root',
-    'password' => '112358njkz_',
+    'password' => 'vagrant',
     'charset' => 'utf8',
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,

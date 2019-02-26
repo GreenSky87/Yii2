@@ -32,6 +32,7 @@ $config = [
             'class' => \app\components\DayComponent::class,
             'day_class' => '\app\models\Day'
         ],
+        'dao'=>['class'=>\app\components\DAOComponent::class],
         'calendar' => [
             'class' => \app\components\CalendarComponent::class,
             'calendar_class' => '\app\models\Calendar'
