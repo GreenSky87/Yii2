@@ -2,6 +2,7 @@
 namespace app\components;
 use app\models\Activity;
 use yii\base\Component;
+use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
 class ActivityComponent extends Component
 {
@@ -35,6 +36,7 @@ class ActivityComponent extends Component
     }
     private function getPathSaveFile()
     {
+        FileHelper::createDirectory(\Yii::getAlias('@app/web/images/'));
         return \Yii::getAlias('@app/web/images/');
     }
 }
