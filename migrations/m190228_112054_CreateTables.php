@@ -1,9 +1,11 @@
 <?php
+
 use yii\db\Migration;
+
 /**
- * Class m190225_161520_CreateTables
+ * Class m190228_112054_CreateTables
  */
-class m190225_161520_CreateTables extends Migration
+class m190228_112054_CreateTables extends Migration
 {
     /**
      * {@inheritdoc}
@@ -30,6 +32,7 @@ class m190225_161520_CreateTables extends Migration
             'date_create'=>$this->timestamp()->notNull()->defaultExpression('CURRENT_TIMESTAMP')
         ]);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -38,14 +41,18 @@ class m190225_161520_CreateTables extends Migration
         $this->dropTable('users');
         $this->dropTable('activity');
     }
+
     /*
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
+
     }
+
     public function down()
     {
-        echo "m190225_161520_CreateTables cannot be reverted.\n";
+        echo "m190228_112054_CreateTables cannot be reverted.\n";
+
         return false;
     }
     */

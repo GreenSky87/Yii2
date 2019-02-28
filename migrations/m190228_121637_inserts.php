@@ -1,9 +1,11 @@
 <?php
+
 use yii\db\Migration;
+
 /**
- * Class m190225_164520_inserts
+ * Class m190228_121637_inserts
  */
-class m190225_164520_inserts extends Migration
+class m190228_121637_inserts extends Migration
 {
     /**
      * {@inheritdoc}
@@ -25,6 +27,7 @@ class m190225_164520_inserts extends Migration
             ['Заголовк 2',date('Y-m-d H:i:s'),1,1]
         ]);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -32,14 +35,18 @@ class m190225_164520_inserts extends Migration
     {
         $this->delete('users');
     }
+
     /*
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
+
     }
+
     public function down()
     {
-        echo "m190225_164520_inserts cannot be reverted.\n";
+        echo "m190228_121637_inserts cannot be reverted.\n";
+
         return false;
     }
     */

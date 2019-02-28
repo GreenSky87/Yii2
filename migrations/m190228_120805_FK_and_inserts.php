@@ -1,9 +1,11 @@
 <?php
+
 use yii\db\Migration;
+
 /**
- * Class m190225_163814_FK_and_inserts
+ * Class m190228_120805_FK_and_inserts
  */
-class m190225_163814_FK_and_inserts extends Migration
+class m190228_120805_FK_and_inserts extends Migration
 {
     /**
      * {@inheritdoc}
@@ -16,6 +18,7 @@ class m190225_163814_FK_and_inserts extends Migration
             'users','id','CASCADE','CASCADE');
         $this->createIndex('asdf','users','email',true);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -24,14 +27,18 @@ class m190225_163814_FK_and_inserts extends Migration
         $this->dropForeignKey('user_activity_FK','activity');
         $this->dropColumn('activity','user_id');
     }
+
     /*
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
+
     }
+
     public function down()
     {
-        echo "m190225_163814_FK_and_inserts cannot be reverted.\n";
+        echo "m190228_120805_FK_and_inserts cannot be reverted.\n";
+
         return false;
     }
     */
