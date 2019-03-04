@@ -7,7 +7,7 @@ use app\models\rules\CorrectTimeRule;
 use app\models\rules\CorrectTimeStart;
 use app\models\rules\DateTodayPlusRule;
 
-class Activity extends ActivityBase
+class ActivityBase extends \yii\db\ActiveRecord
 {
     public $title; 
     public $dateAct; 
@@ -22,7 +22,10 @@ class Activity extends ActivityBase
 
     public function rules()
     {
-        return [
+    /**
+     * {@inheritdoc}
+     */
+           return [
             [['title', 'description', 'timeStart', 'timeEnd', 'dateAct'], 'required'],
             [['is_blocked', 'is_repeated', 'use_notification'], 'boolean'],
             [['images'], 'file', 'extensions' => 'jpg, png', 'maxFiles' => 4],
@@ -31,6 +34,10 @@ class Activity extends ActivityBase
             ['timeEnd', CorrectTimeRule::class], 
             ['dateAct', DateTodayPlusRule::class], 
         ];
+    }
+    public static function tableName()
+    {
+        return 'activity';
     }
     public function attributeLabels()
     {
@@ -46,5 +53,11 @@ class Activity extends ActivityBase
             'is_repeated' => 'Повторяющееся',
         ];
     }
-
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
+    }
 }

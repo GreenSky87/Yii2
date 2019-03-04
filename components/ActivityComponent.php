@@ -7,6 +7,14 @@ use yii\web\UploadedFile;
 class ActivityComponent extends Component
 {
     public $activity_class;
+    public function init()
+	{
+		parent::init();
+		if(empty($this->activity_class)){
+			throw new \Exception("Need attribute activity_class");
+			
+		}
+	}
     public function getModel($params = null)
     {
         $model = new $this->activity_class;
@@ -38,5 +46,27 @@ class ActivityComponent extends Component
     {
         FileHelper::createDirectory(\Yii::getAlias('@app/web/images/'));
         return \Yii::getAlias('@app/web/images/');
+    }
+    /**
+     * @param $id
+     * @return Activity|array|\yii\db\ActiveRecord|null
+     */
+	public function getActivity($id){
+	    return $this->getModel()::find()->andWhere(['id'=>$id])->one();
+    }
+    private function saveImages(&$model){
+        $path = $this->getPathSaveFile();
+        if($model->images) {
+            foreach ($model->images as $image) {
+                $name = mt_rand(0, 9999) . time() . '.' . $image->getExtension();
+                if (!$image->saveAs($path . $name)) {
+                    $model->addError('images', 'Файл не удалось переместить');
+                    return false;
+                }
+                $model->imagesNewNames[] = $name;
+            }
+        }else{
+            return true;
+        }
     }
 }

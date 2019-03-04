@@ -1,5 +1,6 @@
 <?php
 use yii\Helpers\Html;
+use yii\bootstrap\ActiveForm;
 ?>
 
 <div class="row">
