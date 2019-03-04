@@ -15,8 +15,11 @@
         <?=$form->field($model,'password')->passwordInput();?>
 
         <div class="form-group">
-            <button type="submit">Регистрация</button>
+            <button type="submit">Войти</button>
         </div>
         <?php \yii\bootstrap\ActiveForm::end(); ?>
     </div>
+</div>
+<div class="row">
+    <h2>Если Вы не зарегистрированы - <a class="btn btn-primary" href="/auth/sign-up" >Регистрация</a></h2>    
 </div>
