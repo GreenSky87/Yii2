@@ -26,6 +26,9 @@ $config = [
         ],
         'rbac'=>\app\components\RbacComponent::class,
         'auth'=>\app\components\UsersAuthComponent::class,
+        'authManager'=>[
+            'class'=>'\yii\rbac\DbManager'
+        ],
         'activity' => [
             'class' => \app\components\ActivityComponent::class,
             'activity_class' => '\app\models\Activity'
