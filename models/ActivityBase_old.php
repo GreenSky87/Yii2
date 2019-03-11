@@ -15,13 +15,13 @@ use Yii;
  * @property int $is_repeated
  * @property int $user_id
  * @property int $is_completed
- * @property string $date_updated
  * @property string $date_created
  *
  * @property Users $user
  * @property Images[] $images
  */
-class ActivityBase extends \yii\db\ActiveRecord
+//class ActivityBase extends \yii\db\ActiveRecord
+class oldActivityBase extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -36,13 +36,13 @@ class ActivityBase extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'timeStart', 'description', 'user_id'], 'required'],
-            [['dateAct', 'date_created'], 'safe'],
+            [['title', 'dateAct', 'timeStart', 'description', 'user_id'], 'required'],
             [['use_notification', 'is_blocked', 'is_repeated', 'user_id', 'is_completed'], 'integer'],
             [['description'], 'string'],
+            [['date_created'], 'safe'],
             [['title'], 'string', 'max' => 150],
-            [['timeStart', 'timeEnd'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['dateAct', 'timeStart', 'timeEnd'], 'string', 'max' => 255],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
     /**
@@ -70,12 +70,8 @@ class ActivityBase extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Users::class, ['id' => 'user_id']);
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
-//    public function getUserID()
-//    {
-//        return $this->getUser()['id'];
-//    }
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -1,5 +1,5 @@
 <?php
-
+$date_format = require __DIR__ . '/date_format.php'; // конфиг с форматом даты
 $params = require __DIR__ . '/params.php';
 $db = file_exists( __DIR__.'/db_local.php')
     ?(require __DIR__ . '/db_local.php')
@@ -20,11 +20,19 @@ $config = [
         ],
     ],
     'components' => [
+        'formatter' => [
+            'class' => '\yii\i18n\Formatter',
+            'dateFormat' => 'php:d.m.Y'
+        ],
         'request' => [
+            'as logme' => \app\behaviors\LogMyBehavior::class,
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'x1yZxAsFadyGbXn40PU40s_DK8U9tPXQ',
         ],
         'rbac'=>\app\components\RbacComponent::class,
+        'admin' => [
+            'class' => \app\components\AdminComponent::class,
+        ],
         'auth'=>\app\components\UsersAuthComponent::class,
         'authManager'=>[
             'class'=>'\yii\rbac\DbManager'
@@ -58,6 +66,9 @@ $config = [
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
+            'messageConfig' => [
+                'charset' => 'UTF-8',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -74,11 +85,15 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'activity/edit/<id:\d+>' => 'activity/edit',
+                'activity/delete/<id:\d+>' => 'activity/delete',
+                'admin/user-edit/<id:\d+>' => 'admin/user-edit',
+                'admin/user-delete/<id:\d+>' => 'admin/user-delete',
             ],
         ],
         
     ],
-    'params' => $params,
+    'params' => array_merge($params, $date_format),
 ];
 
 if (YII_ENV_DEV) {

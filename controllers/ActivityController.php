@@ -18,6 +18,9 @@ class ActivityController extends BaseController
             'edit' => [
                 'class' => ActivityEditAction::class
             ],
+            'delete' => [
+                'class' => ActivityDeleteAction::class,
+            ],
         ];
     }
 }

@@ -1,12 +1,19 @@
 <?php
-/**
-
- */
 namespace app\controllers;
 use yii\web\Controller;
+use app\controllers\actions\GenAction;
 class RbacController extends Controller
 {
-    public function actionGen(){
-        \Yii::$app->rbac->generateRbacRules();
+    public function actions()
+    {
+        return [
+            'gen' => [
+                'class' => GenAction::class
+            ],
+        ];
     }
+//    public function actionGen()
+//    {
+//        $comp = \Yii::$app->rbac->generateRbacRules();
+//    }
 }

@@ -23,6 +23,7 @@ class ActivityComponent extends Component
         }
         return $model;
     }
+    
     /**
      * @param $model Activity
      */
@@ -42,10 +43,42 @@ class ActivityComponent extends Component
             return true;
         }
     }
+    /**
+     * @param $model Activity
+     * @return bool
+     */
+    public function updateActivity(&$model)
+    {
+        if ($model->validate()) {
+            $model->update();
+            return true;
+        } else {
+//            print_r($model->errors);
+            return false;
+        }
+    }
+    public function deleteActivity($id)
+    {
+        if ($this->getActivity($id)->delete()) {
+            return true;
+        } else {
+            print_r("Ошибка при удалении");
+            return false;
+        }
+    }
+    
     private function getPathSaveFile()
     {
-        FileHelper::createDirectory(\Yii::getAlias('@app/web/images/'));
         return \Yii::getAlias('@app/web/images/');
+    }
+    /**
+     * @param $params
+     * @return \yii\data\ActiveDataProvider
+     */
+    public function getSearchProvider($params)
+    {
+        $model = new ActivitySearch();
+        return $model->getDataProvider();
     }
     /**
      * @param $id

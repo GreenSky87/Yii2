@@ -1,11 +1,9 @@
 <?php
 namespace app\controllers\actions;
 use app\components\ActivityComponent;
-use app\components\DaoComponent;
-use app\models\Activity;
 use yii\base\Action;
 use yii\web\HttpException;
-class ActivityEditAction extends Action
+class ActivityDeleteAction extends Action
 {
     public function run($id)
     {
@@ -25,22 +23,13 @@ class ActivityEditAction extends Action
         if (!\Yii::$app->rbac->canViewActivity($activity) && !\Yii::$app->rbac->canViewEditAll()) {
 //        if (!\Yii::$app->rbac->canViewEditAll()) {
 //            return $this->controller->redirect(['/auth/sign-in']);
-            throw new HttpException(403, 'У вас нет прав на редактирование этой активности');
+            throw new HttpException(403, 'У вас нет прав на удаление этой активности');
         }
-        // если пришел post-запрос
-        if (\Yii::$app->request->isPost) {
-            // загрузить post-данные в запись события
-            $activity->load(\Yii::$app->request->post());
-            if ($comp->updateActivity($activity)) { // если удалось сделать update, перейти на страницу подтверждения
-                if (\Yii::$app->rbac->canViewEditAll()) {
-                    return $this->controller->redirect(['/admin/activities']);
-                } else {
-                    return $this->controller->render('create-confirm',
-                        ['activity' => $activity,]);
-                }
-            }
+        $comp->deleteActivity($id);
+        \Yii::$app->session->addFlash('success', 'Событие удалено');
+        if (\Yii::$app->rbac->canViewEditAll()){
+            return $this->controller->redirect(['/admin/activities']);
         }
-        return $this->controller->render('edit', ['activity' => $activity]);
+        return $this->controller->redirect(['/calendar/view']);
     }
-
 }

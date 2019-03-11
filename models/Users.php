@@ -1,33 +1,30 @@
 <?php
-
 namespace app\models;
-
-use Yii;
+use app\behaviors\SendEmailAfterAdminCreateUser;
 use yii\web\IdentityInterface;
-
-/**
- * This is the model class for table "users".
- *
- * @property int $id
- * @property string $email
- * @property string $password_hash
- * @property string $token
- * @property string $fio
- * @property string $date_create
- *
- * @property Activity[] $activities
- */
 class Users extends UsersBase implements IdentityInterface
 {
-    public $password;
+    const ADMIN_CREATE_USER = 'admin create user'; // метка события, которое будет вызываться при создании админом нового пользователя
+    public $password; // пароль
+    public $passwordCompare; // поле повтора пароля
     public $username;
+    public function behaviors(){ // поведения
+        return [
+            [
+                'class' => SendEmailAfterAdminCreateUser::class,
+                'attribute_name' => 'email',
+            ]
+        ];
+    }
     public function rules()
     {
-//        $this->updateAttributes(['email']);
         return array_merge([
-            ['password','string','min'=>4],
-//            ['email','exist']
-        ],parent::rules());
+            ['password', 'string', 'min' => 4],
+            ['passwordCompare', 'compare', 'compareAttribute' => 'password'],
+            ['fio', 'required']
+//            ['email', 'exist'] // проверка, что email существует в БД
+        ],
+            parent::rules());
     }
     /**
      * Finds an identity by the given ID.
@@ -38,7 +35,7 @@ class Users extends UsersBase implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return Users::find()->andWhere(['id'=>$id])->one();
+        return Users::find()->andWhere(['id' => $id])->one();
     }
     /**
      * Finds an identity by the given token.
@@ -93,5 +90,12 @@ class Users extends UsersBase implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return true;
+    }
+    public function attributeLabels()
+    {
+        return array_merge([
+            'email' => 'Адрес эл. почты',
+            'fio' => 'Имя пользователя'
+        ], parent::attributeLabels());
     }
 }
